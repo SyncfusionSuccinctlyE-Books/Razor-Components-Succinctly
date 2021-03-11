@@ -1,0 +1,26 @@
+﻿@inherits CoolDialogBase
+
+<Skclusive.Material.Dialog.Dialog Open="@base.Open"
+        OnClose="@base.OnClose"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description">
+    <DialogTitle Id="alert-dialog-title">
+        Do you like this dialog?
+    </DialogTitle>
+    <DialogContent>
+        <DialogContentText Id="alert-dialog-description">
+            This is a dialog from the Skclusive-UI library :)
+        </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+        <Button OnClick="@base.OnClose"
+                Color="@Color.Primary">
+            Disagree
+        </Button>
+        <Button OnClick="@base.OnClose"
+                Color="@Color.Primary"
+                autofocus>
+            Agree
+        </Button>
+    </DialogActions>
+</Skclusive.Material.Dialog.Dialog>

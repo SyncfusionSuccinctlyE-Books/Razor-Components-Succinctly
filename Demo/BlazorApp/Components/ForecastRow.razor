@@ -1,0 +1,33 @@
+﻿@inherits ForecastRowBase
+
+<tr>
+    <td>@Forecast.Date.ToShortDateString()</td>
+    <td>@Forecast.TemperatureC</td>
+    <td>@Forecast.TemperatureF</td>
+    <td>@Forecast.Summary</td>
+    <div @onclick="e => Forecast.ShowExtras = !Forecast.ShowExtras">
+        <IconButton aria-label="delete"
+                    Style="margin: 8px;"
+                    Size="@IconButtonSize.Small">
+            <ArrowDownwardIcon Style="font-size: inherit;" />
+        </IconButton>
+    </div>
+</tr>
+@if (Forecast.ShowExtras)
+{
+<tr>
+    <td>
+        <strong>Humidity:</strong> @Extras.Humidity%
+    </td>
+    <td>
+        <strong>Wind:</strong> @Extras.Wind
+    </td>
+    <td>
+        <input type="checkbox" @bind="Forecast.ShowExtras" 
+            @onclick="base.CheckboxClicked"   />
+
+        <!--<input type="checkbox" checked="@Forecast.ShowExtras" 
+            @onchange="e => base.CheckboxChanged(e)"/>-->
+    </td>
+</tr>
+}

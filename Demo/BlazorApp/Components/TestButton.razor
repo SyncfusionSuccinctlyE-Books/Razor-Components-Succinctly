@@ -1,0 +1,12 @@
+﻿@inherits TestButtonBase
+
+<div @onclick="TestButtonClick">
+    <Button Class="custom-css"
+        Style="margin: 10px;"
+        Variant="@ButtonVariant.Contained"
+        Color="@ColorValue">
+        @TxtValue
+    </Button>
+    <br />
+    <div>@ChildContent</div>
+</div>

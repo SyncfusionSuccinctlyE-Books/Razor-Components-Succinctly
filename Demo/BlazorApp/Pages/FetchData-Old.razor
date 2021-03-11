@@ -1,0 +1,66 @@
+﻿@page "/fetchdata-old"
+
+@using BlazorApp.Data
+@inject WeatherForecastService ForecastService
+
+@using Microsoft.Extensions.Logging;
+@inject ILogger<Counter> logger;
+
+<h1>Weather forecast</h1>
+
+<p>This component demonstrates fetching data from a service.</p>
+
+@if (forecasts == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forecast in forecasts)
+            {
+                <ForecastRow @key="forecast" Forecast="forecast"
+                    InputAttributes="inputAttributes"
+                    OnShowHide="ShowHide" />
+
+            }
+        </tbody>
+    </table>
+    <CoolDialog @ref="coolDlg" />
+}
+
+@code {
+    private WeatherForecast[] forecasts;
+    private Dictionary<string, object> inputAttributes;
+    private CoolDialogBase coolDlg;
+
+    protected override async Task OnInitializedAsync()
+    {
+        inputAttributes = new Dictionary<string, object>()
+        {
+            { "Region", "Spain" },
+            { "City", "Valencia" },
+            { "State", "Comunidad Valenciana" },
+            { "Day", "01" },
+            { "Month", "11" },
+            { "Year", "2020" }
+        };
+
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+    }
+
+    protected void ShowHide(bool toggle)
+    {
+        logger.LogWarning("Event callback triggered...");
+        coolDlg.OnOpen();
+    }
+}
